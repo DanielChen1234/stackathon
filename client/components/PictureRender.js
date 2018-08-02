@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import API from '../../secrets'
+// const vision = require('@google-cloud/vision')
+// const client = new vision.ImageAnnotatorClient()
 
 class PictureRender extends Component {
 
@@ -17,17 +19,36 @@ class PictureRender extends Component {
     }
 
     capture = async () => {
-        const imageSrc = this.webcam.getScreenshot();
+        const imageSrc = this.webcam.getScreenshot()
         await this.setState({picture: imageSrc})
         // let setState = new Promise(this.setState({picture: imageSrc}))
         // setState.then(() => {
         //     console.log(this.state)    
         // })
-        
-        console.log(this.state.picture)
-        const data = await axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${API}`, {KEY: this.state.picture})
-        console.log(data)
-    };
+        console.log(await this.state.picture.slice(23) + "")
+
+        console.log(await toString(this.state.picture.slice(23)))
+        try {
+            const data = await axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${API}`, {
+                requests:[
+                    {
+                        image: {
+                            content: toString(this.state.picture.slice(23))
+                        },
+                        features: [
+                            {
+                                type: 'FACE_DETECTION',
+                                maxResults: 1
+                            }
+                        ]
+                    }
+                ]
+            })
+            console.log(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
       render() {
         const videoConstraints = {
