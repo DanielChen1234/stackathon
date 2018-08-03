@@ -21,24 +21,17 @@ class PictureRender extends Component {
     capture = async () => {
         const imageSrc = this.webcam.getScreenshot()
         await this.setState({picture: imageSrc})
-        // let setState = new Promise(this.setState({picture: imageSrc}))
-        // setState.then(() => {
-        //     console.log(this.state)    
-        // })
-        console.log(await this.state.picture.slice(23) + "")
-
-        console.log(await toString(this.state.picture.slice(23)))
+      
         try {
             const data = await axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${API}`, {
                 requests:[
                     {
                         image: {
-                            content: toString(this.state.picture.slice(23))
+                            content: this.state.picture.slice(23)
                         },
                         features: [
                             {
                                 type: 'FACE_DETECTION',
-                                maxResults: 1
                             }
                         ]
                     }
