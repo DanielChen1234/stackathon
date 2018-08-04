@@ -2,16 +2,23 @@ import React, {Component} from 'react';
 import axios from 'axios';
 import Webcam from 'react-webcam';
 import API from '../../secrets'
-// const vision = require('@google-cloud/vision')
-// const client = new vision.ImageAnnotatorClient()
+import ParksRender from './ParksRender'
 
 class PictureRender extends Component {
 
     constructor(){
         super();
         this.state = {
-            picture: ''
+            picture: '',
+            sadness: false,
+            parks: []
         }
+    }
+
+    componentDidMount = async () => {
+        const {data} = await axios.get('/api/parks')
+        console.log(data)
+        this.setState({parks: data})
     }
 
     setRef = (webcam) => {
@@ -37,7 +44,12 @@ class PictureRender extends Component {
                     }
                 ]
             })
-            console.log(data)
+
+            const joy = data.data.responses[0].faceAnnotations[0].joyLikelihood
+            console.log(joy)
+            if (joy === 'UNLIKELY' || 'VERY_UNLIKELY') {
+                this.setState({sadness: true})
+            }
         } catch (err) {
             console.log(err)
         }
@@ -50,21 +62,41 @@ class PictureRender extends Component {
           facingMode: 'user',
         };
         
-        return (
-            <div>
-                <Webcam
-                    audio={false}
-                    height={350}
-                    ref={this.setRef}
-                    screenshotFormat="image/jpeg"
-                    width={350}
-                    videoConstraints={videoConstraints}
-                />
-                <img src={this.state.picture} />
-                <button onClick={this.capture}>Capture photo</button>
+        if (this.state.sadness === false){
+            console.log('this is the true')
+            return (
+                <div>
+                    <Webcam
+                        audio={false}
+                        height={350}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                        width={350}
+                        videoConstraints={videoConstraints}
+                    />
+                    <img src={this.state.picture} />
+                    <button onClick={this.capture}>Capture photo</button>
+                </div>
+            )
+        } else if (this.state.sadness === true) {
+            console.log('this is the true')
+            return (
+                <div>
+                    <Webcam
+                        audio={false}
+                        height={350}
+                        ref={this.setRef}
+                        screenshotFormat="image/jpeg"
+                        width={350}
+                        videoConstraints={videoConstraints}
+                    />
+                    <img src={this.state.picture} />
+                    <button onClick={this.capture}>Capture photo</button>
 
-            </div>
-        );
+                    <ParksRender />
+                </div>
+            )  
+        }
     }
 }
 
