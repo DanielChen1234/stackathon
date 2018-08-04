@@ -46,8 +46,8 @@ class PictureRender extends Component {
             })
 
             const joy = data.data.responses[0].faceAnnotations[0].joyLikelihood
-            console.log(joy)
             if (joy === 'UNLIKELY' || 'VERY_UNLIKELY') {
+                console.log(joy)
                 this.setState({sadness: true})
             }
         } catch (err) {
@@ -63,7 +63,6 @@ class PictureRender extends Component {
         };
         
         if (this.state.sadness === false){
-            console.log('this is the true')
             return (
                 <div>
                     <Webcam
@@ -78,24 +77,16 @@ class PictureRender extends Component {
                     <button onClick={this.capture}>Capture photo</button>
                 </div>
             )
-        } else if (this.state.sadness === true) {
-            console.log('this is the true')
-            return (
-                <div>
-                    <Webcam
-                        audio={false}
-                        height={350}
-                        ref={this.setRef}
-                        screenshotFormat="image/jpeg"
-                        width={350}
-                        videoConstraints={videoConstraints}
-                    />
-                    <img src={this.state.picture} />
-                    <button onClick={this.capture}>Capture photo</button>
-
-                    <ParksRender />
-                </div>
-            )  
+        } else {
+            return this.state.parks.map((park) => {
+                return (
+                    <div>
+                        <ul>
+                            <ParksRender park={park} />
+                        </ul>
+                    </div>
+                )
+            })
         }
     }
 }

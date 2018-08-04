@@ -1,31 +1,15 @@
-import React, {Component} from 'react';
-import axios from 'axios';
+import React from 'react';
 
-class ParksRender extends Component {
-    constructor(){
-        super();
-        this.state = {
-            parks: []
-        }
-    }
-
-    render(){
-        // if (this.state.parks.length) {
-        //     this.state.parks.map((park) => {
-                return (
-                    <div>
-                        <h1>{park.name}</h1>
-                        <small>{park.description}</small>
-                        <h2>{park.picture}</h2>
-                        <h4>{park.address}</h4>
-                    </div>
-                )
-            }
-        // )
-        // } else {
-        //     return null
-        // }
-    // }
+const ParksRender = (props) => {
+    console.log(props, 'this is parksrender')
+    return (
+        <div>
+            <h1>{props.park.name}</h1>
+            <img src={props.park.picture} />
+            <p>{props.park.description}</p>
+            <h4>{props.park.address}</h4>
+        </div>
+    )
 }
 
 export default ParksRender
