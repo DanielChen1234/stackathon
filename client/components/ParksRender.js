@@ -3,14 +3,23 @@ import React, {Component} from 'react';
 
 class ParksRender extends Component {
     constructor(){
-        super()
+        super();
+        this.state = {
+            latitude: '',
+            longitude: ''
+        }
     }
 
-    componentDidMount = async () => {
-        function showPosition(position) {
-            console.log("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude)
+    componentDidMount = () => {
+        const showPosition = (position) => {
+            if(position.coords){
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                })
+            }
         }
-        function showError(error) {
+        const showError = (error) => {
             switch (error.code) {
                 case error.PERMISSION_DENIED:
                     x.innerHTML = "User denied the request for Geolocation.";
@@ -30,9 +39,7 @@ class ParksRender extends Component {
             navigator.geolocation.getCurrentPosition(showPosition)
         } else {
             console.log("Geolocation API doesn't supported.")
-        }
-
-        
+        } 
     }
 
     render(){
