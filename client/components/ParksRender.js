@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-
+import Map from './Map'
 
 class ParksRender extends Component {
     constructor(){
         super();
         this.state = {
             latitude: '',
-            longitude: ''
+            longitude: '',
+            miles: 0
         }
     }
 
@@ -39,7 +40,7 @@ class ParksRender extends Component {
             navigator.geolocation.getCurrentPosition(showPosition)
         } else {
             console.log("Geolocation API doesn't supported.")
-        } 
+        }
     }
 
     render(){
@@ -49,6 +50,10 @@ class ParksRender extends Component {
                 <img src={this.props.park.picture} />
                 <p>{this.props.park.description}</p>
                 <h4>{this.props.park.address}</h4>
+
+                <div id="map">
+                    <Map />
+                </div>
             </div>
         )
     }
