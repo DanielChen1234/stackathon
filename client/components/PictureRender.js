@@ -12,16 +12,12 @@ class PictureRender extends Component {
             picture: '',
             sadness: false,
             parks: [],
-            parksLocation: []
         }
     }
 
     componentDidMount = async () => {
         const {data} = await axios.get('/api/parks')
         this.setState({parks: data})
-        const googleMapsClient = require('@google/maps').createClient({
-            key: API
-        });
         
     }
 
@@ -50,12 +46,13 @@ class PictureRender extends Component {
             })
 
             const joy = data.responses[0].faceAnnotations[0].joyLikelihood
-            console.log(typeof joy)
+            console.log(joy)
             if (joy === 'UNLIKELY' || joy === 'VERY_UNLIKELY') {
                 console.log(joy)
                 this.setState({sadness: true})
-                console.log(this.state.sadness)
-            } 
+            } else {
+                this.setState({saddness: false})
+            }
         } catch (err) {
             console.log(err)
         }
