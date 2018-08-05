@@ -84,6 +84,7 @@ class PictureRender extends Component {
             return (
                 <div>
                     <h1>Cheer Up :)! NYC is huge. Go Explore!</h1>
+                    
                     {this.state.parks.map((park) => {
                         return (
                             <div>
