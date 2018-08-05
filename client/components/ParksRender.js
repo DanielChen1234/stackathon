@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Map from './Map'
+import MapWithADirectionsRenderer from './Map'
 
 class ParksRender extends Component {
     constructor(){
@@ -52,7 +52,7 @@ class ParksRender extends Component {
                 <h4>{this.props.park.address}</h4>
 
                 <div id="map">
-                    <Map />
+                    <MapWithADirectionsRenderer longitude={this.state.longitude} latitude={this.state.latitude}/>
                 </div>
             </div>
         )
