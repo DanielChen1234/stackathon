@@ -11,14 +11,18 @@ class PictureRender extends Component {
         this.state = {
             picture: '',
             sadness: false,
-            parks: []
+            parks: [],
+            parksLocation: []
         }
     }
 
     componentDidMount = async () => {
         const {data} = await axios.get('/api/parks')
-        console.log(data)
         this.setState({parks: data})
+        const googleMapsClient = require('@google/maps').createClient({
+            key: API
+        });
+        
     }
 
     setRef = (webcam) => {
@@ -30,7 +34,7 @@ class PictureRender extends Component {
         await this.setState({picture: imageSrc})
       
         try {
-            const data = await axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${API}`, {
+            const {data} = await axios.post(`https://vision.googleapis.com/v1/images:annotate?key=${API}`, {
                 requests:[
                     {
                         image: {
@@ -45,11 +49,13 @@ class PictureRender extends Component {
                 ]
             })
 
-            const joy = data.data.responses[0].faceAnnotations[0].joyLikelihood
-            if (joy === 'UNLIKELY' || 'VERY_UNLIKELY') {
+            const joy = data.responses[0].faceAnnotations[0].joyLikelihood
+            console.log(typeof joy)
+            if (joy === 'UNLIKELY' || joy === 'VERY_UNLIKELY') {
                 console.log(joy)
                 this.setState({sadness: true})
-            }
+                console.log(this.state.sadness)
+            } 
         } catch (err) {
             console.log(err)
         }
@@ -78,15 +84,22 @@ class PictureRender extends Component {
                 </div>
             )
         } else {
-            return this.state.parks.map((park) => {
-                return (
-                    <div>
-                        <ul>
-                            <ParksRender park={park} />
-                        </ul>
-                    </div>
-                )
-            })
+            return (
+                <div>
+                    <h1>Cheer Up :)! NYC is huge. Go Explore!</h1>
+                    {this.state.parks.map((park) => {
+                        return (
+                            <div>
+                                <div key={park.id}>
+                                    <ul>
+                                        <ParksRender park={park} />
+                                    </ul>
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+            )
         }
     }
 }

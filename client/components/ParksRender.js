@@ -1,7 +1,10 @@
 import React from 'react';
+import API from '../../secrets';
 
 const ParksRender = (props) => {
-    console.log(props, 'this is parksrender')
+    const googleMapsClient = require('@google/maps').createClient({
+        key: API
+    });
     return (
         <div>
             <h1>{props.park.name}</h1>
