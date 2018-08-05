@@ -1,5 +1,5 @@
 import React from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap, DirectionsRenderer } from 'react-google-maps';
 import {compose, withProps, lifecycle} from 'recompose'
 import API from '../../secrets'
 
@@ -17,7 +17,7 @@ const MapWithADirectionsRenderer = compose(
         const DirectionsService = new google.maps.DirectionsService();
   
         DirectionsService.route({
-          origin: new google.maps.LatLng(41.8507300, -87.6512600),
+          origin: new google.maps.LatLng(Number(this.props.originLatitude), Number(this.props.originLongitude)),
           destination: new google.maps.LatLng(41.8525800, -87.6514100),
           travelMode: google.maps.TravelMode.WALKING,
         }, (result, status) => {

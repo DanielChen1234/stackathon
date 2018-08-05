@@ -52,7 +52,7 @@ class ParksRender extends Component {
                 <h4>{this.props.park.address}</h4>
 
                 <div id="map">
-                    <MapWithADirectionsRenderer longitude={this.state.longitude} latitude={this.state.latitude}/>
+                    <MapWithADirectionsRenderer originLongitude={this.state.longitude} originLatitude={this.state.latitude}/>
                 </div>
             </div>
         )
