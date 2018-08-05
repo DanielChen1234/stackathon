@@ -7,7 +7,6 @@ class ParksRender extends Component {
         this.state = {
             latitude: '',
             longitude: '',
-            miles: 0
         }
     }
 
@@ -44,18 +43,22 @@ class ParksRender extends Component {
     }
 
     render(){
-        return (
-            <div>
-                <h1>{this.props.park.name}</h1>
-                <img src={this.props.park.picture} />
-                <p>{this.props.park.description}</p>
-                <h4>{this.props.park.address}</h4>
+        if(this.state.longitude !== ''){
+            return (
+                <div>
+                    <h1>{this.props.park.name}</h1>
+                    <img src={this.props.park.picture} />
+                    <p>{this.props.park.description}</p>
+                    <h4>{this.props.park.address}</h4>
 
-                <div id="map">
-                    <MapWithADirectionsRenderer originLongitude={this.state.longitude} originLatitude={this.state.latitude}/>
+                    <div id="map">
+                        <MapWithADirectionsRenderer destinationLongitude={this.props.park.longitude} destinationLatitude={this.props.park.latitude} originLongitude={this.state.longitude} originLatitude={this.state.latitude}/>
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return null
+        }
     }
 }
 

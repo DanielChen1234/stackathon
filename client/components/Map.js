@@ -18,7 +18,7 @@ const MapWithADirectionsRenderer = compose(
   
         DirectionsService.route({
           origin: new google.maps.LatLng(Number(this.props.originLatitude), Number(this.props.originLongitude)),
-          destination: new google.maps.LatLng(41.8525800, -87.6514100),
+          destination: new google.maps.LatLng(Number(this.props.destinationLatitude), Number(this.props.destinationLongitude)),
           travelMode: google.maps.TravelMode.WALKING,
         }, (result, status) => {
           if (status === google.maps.DirectionsStatus.OK) {

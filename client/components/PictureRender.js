@@ -88,11 +88,9 @@ class PictureRender extends Component {
                     {this.state.parks.map((park) => {
                         return (
                             <div>
-                                <div key={park.id}>
-                                    <ul>
-                                        <ParksRender park={park} />
-                                    </ul>
-                                </div>
+                                <ul>
+                                    <ParksRender park={park} key={park.id} />
+                                </ul>
                             </div>
                         )
                     })}

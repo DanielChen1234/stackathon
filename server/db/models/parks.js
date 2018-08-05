@@ -6,8 +6,8 @@ const Park = db.define('park', {
     description: {type: Sequelize.TEXT},
     picture: {type: Sequelize.STRING},
     address: {type: Sequelize.STRING},
-    longitude: {type: Sequelize.INTEGER},
-    latitude: {type:Sequelize.INTEGER}
+    longitude: {type: Sequelize.STRING},
+    latitude: {type:Sequelize.STRING}
 });
 
 module.exports = Park
