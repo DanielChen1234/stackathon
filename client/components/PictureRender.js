@@ -5,6 +5,7 @@ import API from '../../secrets'
 import ParksRender from './ParksRender'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
+import AppBar from '@material-ui/core/AppBar'
 
 class PictureRender extends Component {
 
@@ -48,9 +49,11 @@ class PictureRender extends Component {
             })
 
             const joy = data.responses[0].faceAnnotations[0].joyLikelihood
+            const emotion = data.responses[0].faceAnnotations[0]
+
             console.log(joy)
+            console.log(emotion)
             if (joy === 'UNLIKELY' || joy === 'VERY_UNLIKELY') {
-                console.log(joy)
                 this.setState({sadness: true})
             } else {
                 this.setState({sadness: false})
@@ -61,8 +64,7 @@ class PictureRender extends Component {
     }
 
     happy = () => {
-        this.setState({sadness: false})
-        console.log(this.state)
+        this.setState({sadness: false, picture: ''})
     }
     
       render() {
@@ -74,8 +76,8 @@ class PictureRender extends Component {
         
         if (this.state.sadness === false){
             return (
-                <div classname="webcamDiv" >
-                    <h1 className="feeling">How are you feeling?</h1>
+                <div>
+                    <AppBar><h1 className="feeling">How are you feeling?</h1></AppBar>
                     <div className="webcam" >
                         <Webcam
                             audio={false}
@@ -98,14 +100,14 @@ class PictureRender extends Component {
         } else {
             return (
                 <div>
-                    <h1 className="cheer">Cheer Up :) And Go Explore!</h1>
-                    <Button className="happy" variant="contained" color="primary" onClick={() => this.happy()}>I'm Happy. I Promise</Button> 
+                   <AppBar>Cheer Up :) And Go Explore!
+                    <Button className="happy" variant="contained" color="primary" onClick={() => this.happy()}>I'm Happy. I Promise</Button></AppBar>
                     
                     {this.state.parks.map((park) => {
                         return (
-                            <div>
+                            <div key={park.id}>
                                 <ul key={park.id}>
-                                    <Card variant="contained" color="primary"><ParksRender park={park} key={park.id} /></Card>
+                                    <Card variant="contained" color="primary"><ParksRender park={park} /></Card>
                                 </ul>
                             </div>
                         )
