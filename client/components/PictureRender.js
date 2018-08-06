@@ -51,11 +51,16 @@ class PictureRender extends Component {
                 console.log(joy)
                 this.setState({sadness: true})
             } else {
-                this.setState({saddness: false})
+                this.setState({sadness: false})
             }
         } catch (err) {
             console.log(err)
         }
+    }
+
+    happy = () => {
+        this.setState({sadness: false})
+        console.log(this.state)
     }
     
       render() {
@@ -84,6 +89,7 @@ class PictureRender extends Component {
             return (
                 <div>
                     <h1>Cheer Up :)! NYC is huge. Go Explore!</h1>
+                    <button onClick={() => this.happy()}>I'm Happy. I Promise</button> 
                     
                     {this.state.parks.map((park) => {
                         return (
