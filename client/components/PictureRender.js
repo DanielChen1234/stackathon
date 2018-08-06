@@ -3,6 +3,8 @@ import axios from 'axios';
 import Webcam from 'react-webcam';
 import API from '../../secrets'
 import ParksRender from './ParksRender'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
 
 class PictureRender extends Component {
 
@@ -72,30 +74,38 @@ class PictureRender extends Component {
         
         if (this.state.sadness === false){
             return (
-                <div>
-                    <Webcam
-                        audio={false}
-                        height={350}
-                        ref={this.setRef}
-                        screenshotFormat="image/jpeg"
-                        width={350}
-                        videoConstraints={videoConstraints}
-                    />
-                    <img src={this.state.picture} />
-                    <button onClick={this.capture}>Capture photo</button>
+                <div classname="webcamDiv" >
+                    <h1 className="feeling">How are you feeling?</h1>
+                    <div className="webcam" >
+                        <Webcam
+                            audio={false}
+                            height={350}
+                            ref={this.setRef}
+                            screenshotFormat="image/jpeg"
+                            width={350}
+                            videoConstraints={videoConstraints}
+                        />
+                    </div>
+                    
+                    <div className="screenshot">
+                        <img src={this.state.picture} />
+                    </div>
+                    <div className="buttonPic">
+                        <Button variant="contained" color="primary" onClick={this.capture}>Capture photo</Button>
+                    </div>
                 </div>
             )
         } else {
             return (
                 <div>
-                    <h1>Cheer Up :)! NYC is huge. Go Explore!</h1>
-                    <button onClick={() => this.happy()}>I'm Happy. I Promise</button> 
+                    <h1 className="cheer">Cheer Up :) And Go Explore!</h1>
+                    <Button className="happy" variant="contained" color="primary" onClick={() => this.happy()}>I'm Happy. I Promise</Button> 
                     
                     {this.state.parks.map((park) => {
                         return (
                             <div>
-                                <ul>
-                                    <ParksRender park={park} key={park.id} />
+                                <ul key={park.id}>
+                                    <Card variant="contained" color="primary"><ParksRender park={park} key={park.id} /></Card>
                                 </ul>
                             </div>
                         )

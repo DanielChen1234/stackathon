@@ -19,3 +19,57 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.webcamDiv {
+  display: flex;
+  justify-content: center
+}
+
+.screenshot {
+  display: flex;
+  justify-content: center
+} 
+
+.webcam {
+  display: flex;
+  justify-content: center
+}
+
+.buttonPic {
+  display: flex;
+  justify-content: center
+}
+
+.parkPic {
+  height: 150px;
+  width: 150px;
+}
+
+body {
+  background-color: gray
+}
+
+.feeling {
+  display: flex;
+  justify-content: center
+}
+
+.cheer {
+  display: flex;
+  justify-content: center
+}
+
+.park {
+  display: flex;
+  justify-content: center
+}
+
+.parkPic {
+  display: flex;
+  justify-content: center
+}
+
+.happy {
+  display: flex;
+  justify-content: center
+}

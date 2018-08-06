@@ -46,8 +46,8 @@ class ParksRender extends Component {
         if(this.state.longitude !== ''){
             return (
                 <div>
-                    <h1>{this.props.park.name}</h1>
-                    <img src={this.props.park.picture} />
+                    <h1 className="park">{this.props.park.name}</h1>
+                    <img className="parkPic" src={this.props.park.picture} />
                     <p>{this.props.park.description}</p>
                     <h4>{this.props.park.address}</h4>
 
